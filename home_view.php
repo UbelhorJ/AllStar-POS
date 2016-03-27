@@ -1,5 +1,27 @@
 <?php include 'view/header.php'; ?>
 <?php include 'view/navigation.php'; ?>
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    thead {
+        background-color: #1F4E79;
+        color: #FFFFFF;
+    }
+    
+    thead tr > :nth-child(2) {
+        width: 100px;
+        text-align: right;
+    }
+    
+    tr, td {
+        border: 2px solid #1F4E79;
+        padding: 3px;
+    }  
+</style>
    
     <section>
         
@@ -29,15 +51,36 @@
         
         <div class="info_section">
             <div class="section_header_general">
-                <h2>GENERAL INFORMATION</h2>
+                <h2>RELEASE NOTES</h2>
             </div>
             <div class="section_body_general">
-                <p>
-                   <?php
-                    echo($app_path);
-                   ?> 
-                    
-                </p>
+                <br>
+                <?php foreach ($release_notes as $note) : ?>
+                    <?php 
+                        $noteDate = new DateTime($note['dateTime']);
+                        $noteDate = $noteDate->format('m/d/Y');
+                    ?>
+					<table>
+                        <thead>
+						    <tr>
+							    <td >
+								    <b><?php echo $note['description']; ?></b>
+							    </td>
+							    <td>
+								    <b><?php echo $noteDate; ?></b>
+							    </td>
+						    </tr>
+                        </thead>
+                        <tbody>
+						    <tr>
+							    <td colspan="2">
+							    <?php echo $note['detailedDescription']; ?>
+							    </td>
+						    </tr>
+                        </tbody>
+					</table>
+                    <br>
+                <?php endforeach ?>
             </div>
         </div>
         
