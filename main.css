@@ -156,3 +156,35 @@ section {
     background-color: #FAC8AA;
     border-color: #F07D32;
 } 
+
+/*----- GENERAL TABLES -----*/
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #1F4E79;
+    color: #FFFFFF;
+}
+
+/* ------- FORMS ------*/
+
+fieldset {
+    padding: 2px;
+    margin: 2px;
+    border: 2px solid #1F4E79;
+}
+
+input, select {
+    border: 1px solid #1F4E79;
+}
+
+.input_error {
+    border: 2px solid #FF0000;
+}
+	
+/* ------ OTHER ------*/
+.hidden {
+    display: none;
+}

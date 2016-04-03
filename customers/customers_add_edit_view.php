@@ -1,4 +1,10 @@
+<?php include 'view/head.php'; ?>
+    <script src="../javascript/customers_add_edit.js"></script>
+    <script src="../javascript/validation.js"></script>
+</head>
+
 <?php include 'view/header.php'; ?>
+
 <?php include 'view/navigation.php'; ?>
 
 <style>
@@ -6,27 +12,25 @@
         padding: 2px;
         margin: 2px;
     }
-    
-    fieldset {
-       padding: 3px;
-       margin: 3px;
-       border: 2px solid #1F4E79;
-    }
-    
-    input, select {
-        border: 1px solid #1F4E79;
-    }
 </style>
 
     <section>      
-       
+       <div class="info_section hidden" id="error_section">
+            <div class="section_header_error">
+                <h2>ERROR</h2>
+            </div>
+            <div class="section_body_error" id="section_body_error">
+                <p>This is the error message text.</p>
+            </div>
+        </div>
+        <br>
         <div class="info_section">
             <div class="section_header_general">
                 <h2>CUSTOMER INFORMATION</h2>
             </div>
             <div class="section_body_general">
                 <br>
-                <form name="add_edit_customer" action="." method="POST">
+                <form name="add_edit_customer" id="add_edit_customer" action="." method="POST">
                     <fieldset>
                         <legend>&nbsp;Customer Name&nbsp;</legend>
                         <table id="customer_name">
@@ -102,11 +106,11 @@
                         <?php 
                         if ($customerID === 'new') {
                             echo "<input type=\"hidden\" name=\"action\" value=\"add_customer\"> \n";
-                            echo "<input type=\"submit\" id=\"save_new_customer\" value=\" Save New Customer \">";
+                            echo "<input type=\"button\" id=\"save_new_customer\" value=\" Save New Customer \">";
                         } else {
                             echo "<input type=\"hidden\" name=\"action\" value=\"update_customer\"> \n";
                             echo "<input type=\"hidden\" name=\"customerID\" value=\"" . $customerID . "\"> \n";
-                            echo "<input type=\"submit\" id=\"save_changes\" value=\" Save Changes \">";
+                            echo "<input type=\"button\" id=\"save_changes\" value=\" Save Changes \">";
                         }                 
                         ?>
                     </div>      

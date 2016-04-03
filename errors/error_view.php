@@ -1,4 +1,8 @@
-<?php include '../view/header.php'; ?>
+<?php include '../view/head.php'; ?>
+</head>
+
+<?php include 'view/header.php'; ?>
+    
 <?php include '../view/navigation.php'; ?>
    
     <section>

@@ -1,16 +1,11 @@
+<?php include 'view/head.php'; ?>
+</head>
+
 <?php include 'view/header.php'; ?>
+    
 <?php include 'view/navigation.php'; ?>
 
 <style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-    
-    thead {
-        background-color: #1F4E79;
-        color: #FFFFFF;
-    }
     
     thead tr > :nth-child(2) {
         width: 100px;

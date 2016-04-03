@@ -1,4 +1,8 @@
+<?php include 'view/head.php'; ?>
+</head>
+
 <?php include 'view/header.php'; ?>
+
 <?php include 'view/navigation.php'; ?>
 
 <style>
@@ -13,27 +17,15 @@
     }
     
     table {
-        width: 100%;
-        border-collapse: collapse;
         border: 2px solid #1F4E79;
-    }
-    
-    thead {
-        background-color: #1F4E79;
-        color: #FFFFFF;
-    }    
+    } 
     
     tr, td {
         padding: 5px;
-        /*border: 2px solid #1F4E79;*/
     }
     
     tr:nth-child(4n), tr:nth-child(4n-1) {
         background-color: #BED7F0;
-    }
-        
-    .hidden {
-        display: none;
     }
     
     #id {
@@ -65,6 +57,11 @@
     $(document).ready(function() {
        $(".customerInfoLine").click(function() {
            $(this).next().toggleClass("hidden");
+           if ($(this).find(':first-child').text() === "▶") {
+                $(this).find(':first-child').text("🔻");     
+           } else {
+               $(this).find(':first-child').text("▶");
+           }
        });
     });
 </script>
@@ -95,6 +92,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <td id="twist">&nbsp;</td>
                             <td id="id">ID</td>
                             <td id="name">Name</td>
                             <td id="phone">Phone#</td>
@@ -104,13 +102,14 @@
                     <tbody>
                     <?php foreach ($customers as $customer) : ?>
                         <tr class="customerInfoLine">
+                            <td>▶</td>
                             <td><?php echo $customer->getCustomerIDFormatted(); ?></td>
                             <td><?php echo $customer->getFullNameFamilyFirst(); ?></td>
                             <td><?php echo $customer->getPhoneNumberFormatted(); ?></td>
                             <td><?php echo $customer->getEmailAddress(); ?></td>
                         </tr>
                         <tr class="hidden">
-                            <td>&nbsp;</td>
+                            <td colspan="2">&nbsp;</td>
                             <td colspan="2">
                                 <?php echo $customer->getAddressFormatted() ?>
                             </td>
