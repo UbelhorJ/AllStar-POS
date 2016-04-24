@@ -88,6 +88,26 @@ function getSelectCustomers($searchTerm) {
           
 }
 
+// returns formatted customer data for ajax customer search box
+function getCustomersForDatalist($searchTerm) {
+    $customerJSON = array();
+    $results = getSelectCustomers($searchTerm);
+    
+    foreach ($results as $result) {
+        $customer = array();
+        $customer['ID'] = $result->getCustomerID(); 
+        $customer['info'] = 
+            $result->getCustomerIDFormatted() . " " .
+            $result->getFullNameFamilyFirst() . " " .
+            $result->getPhoneNumberFormatted() . " " .
+            $result->getEmailAddress();
+        
+        $customerJSON[] = $customer;     
+    }
+    
+    echo json_encode($customerJSON, JSON_PRETTY_PRINT);
+}
+
 // returns all customers in customers
 function getAllCustomers() {
     global $db;

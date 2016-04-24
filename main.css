@@ -9,11 +9,13 @@ article, aside, figure, footer, header, nav, section {
 }
 
 html, body {
-    background-color: #ffffff;
+    background-color: #70A8DA;
     font-family: Arial, Helvetica, sans-serif;
-    height: 100%;
     width: 100%;
-    overflow: hidden;
+}
+
+body {
+    padding-top: 45px;
 }
 
 /* ----- HEADER ------*/
@@ -25,7 +27,9 @@ header {
     padding-left: 10px;
     vertical-align: bottom;
     background-color: #9A0000;
-    clear: both;
+    position: fixed;
+    top: 0px;
+    z-index: 10;
 }
 
 header h1, header p, header a {
@@ -60,8 +64,9 @@ nav {
     width: 145px;
     padding: 35px 10px 0 10px;
     background-color: #1F4E79;
-    float: left;
     position: fixed;
+    top: 45px;
+    left: 0px;
     height: 100%;
 }
 
@@ -87,11 +92,8 @@ nav li {
 /* --------- MAIN BODY -------- */
 
 section {
-    height: 100%;
-    position: relative;
     background-color: #70A8DA;
-    padding: 10px 10px 0 10px;
-    padding-bottom: 100px;
+    padding: 10px;
     margin-left: 165px;
     overflow: auto;
 }

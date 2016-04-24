@@ -67,7 +67,6 @@
 </script>
    
     <section>
-        <div style="padding-bottom: 75px;">
         <div class="info_section">
             <div class="section_header_general">
                 <h2>CUSTOMERS</h2>
@@ -129,8 +128,8 @@
                         </td>
                     <?php endforeach ?>
                     </tbody>
-                </table
-            </div>
+                </table>
+
         </div>
         </div>
         
