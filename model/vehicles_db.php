@@ -1,4 +1,80 @@
 <?php
+
+function createVehicle($result) {
+    $vehicle = new vehicle($result['vehicleID'],
+                           $result['year'],
+                           $result['brandID'],
+                           $result['brandName'],
+                           $result['modelID'],
+                           $result['modelName'],
+                           $result['VIN'],
+                           $result['odometerReading'],
+                           $result['plateState'],
+                           $result['plateNumber'],
+                           $result['exteriorColor'],
+                           $result['interiorColor'],
+                           $result['engineType'],
+                           $result['driveType'],
+                           $result['transmissionType'],
+                           $result['fuelType'],
+                           $result['titleStatus']);
+                          
+    return $vehicle;
+}
+
+function buildVehiclesArray($results) {
+    $vehicleList = array();
+    
+    foreach($results as $result) {
+        $vehicle = createVehicle($result);
+        $vehicleList[] = $vehicle;
+    }
+    
+    return $vehicleList;
+}
+
+function getAllVehicles() {
+    global $db;
+
+    $query = 'SELECT 
+                vehicleID,
+                year,
+                vehicles_base.brandID,
+                brandName,
+                vehicles_base.modelID,
+                model AS \'modelName\',
+                VIN,
+                odometerReading,
+                plateState,
+                plateNumber,
+                exteriorColor,
+                interiorColor,
+                engineType,
+                driveType,
+                transmissionType,
+                fuelType,
+                titleStatus
+            FROM vehicles_base
+                LEFT JOIN vehicles_brands
+                    ON vehicles_base.brandID = vehicles_brands.brandID
+                LEFT JOIN vehicles_models
+                    ON vehicles_base.modelID = vehicles_models.modelID;';
+
+    try {
+        $statement = $db->prepare($query);
+        $statement->execute();
+        $results = $statement->fetchAll();
+        $statement->closeCursor();      
+        
+        $vehiclesList = buildVehiclesArray($results);
+        
+        return $vehiclesList;
+    } catch (PDOException $e) {
+        $error_message = $e->getMessage();
+        include 'errors/error_view.php';
+    }
+}
+
 function getAllVehicleBrands() {
     global $db;
   
@@ -172,5 +248,61 @@ function addVehicleRecord($vehicleInfo, $recordInfo, $recordType) {
             addVehicleCompany($vehicleID, $recordInfo);
             break;
     }
+}
+
+function getVehicleRecord($vehicleID, $recordType) {
+    global $db;
+    
+    switch ($recordType) {
+        case 'customer':
+            $query = "SELECT 
+                          vehicles_customers.vehicleID,
+                          vehicles_customers.customerID, 
+                          CONCAT(customers.lastName, ', ', customers.firstName) AS customerName,
+                          SUBSTRING(customers.phoneNumber, 1, 3) AS areaCode,
+                          SUBSTRING(customers.phoneNumber, 4, 3) AS prefix,
+                          SUBSTRING(customers.phoneNumber, 7, 4) AS lineNumber,
+                          customers.emailAddress
+                      FROM vehicles_customers
+                      JOIN customers
+                          ON vehicles_customers.customerID = customers.customerID
+                      WHERE vehicles_customers.vehicleID = :vehicleID;";
+            break;
+        case 'sale':
+            $query = "SELECT * FROM vehicles_sales
+                      WHERE vehicleID = :vehicleID;";
+            break;
+        case 'impound':
+            $query = "SELECT * FROM vehicles_impound
+                      WHERE vehicleID = :vehicleID;";
+            break;
+        case 'company':
+            $query = "SELECT * FROM vehicles_company
+                      WHERE vehicleID = :vehicleID;";
+            break;
+    }
+              
+    try {
+        $statement = $db->prepare($query);
+        $statement->bindValue(":vehicleID", $vehicleID);
+        $statement->execute();
+        $results = $statement->fetch();
+    } catch (PDOException $e) {
+        $error_message = $e->getMessage();
+        include 'errors/error_view.php';
+    }
+    
+    return $results;
+}
+
+function getVehicleRecords($vehicleID) {
+    $recordsList = array();
+    
+    $recordsList['customer'] = getVehicleRecord($vehicleID, "customer");
+    $recordsList['sale'] = getVehicleRecord($vehicleID, "sale");
+    $recordsList['impound'] = getVehicleRecord($vehicleID, "impound");
+    $recordsList['company'] = getVehicleRecord($vehicleID, "company");
+    
+    echo json_encode($recordsList, JSON_PRETTY_PRINT);
 }
 ?>

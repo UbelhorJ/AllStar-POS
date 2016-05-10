@@ -14,12 +14,7 @@
             <div class="section_body_error">
                 <p>
                     <?php
-                        echo $error_message;
-                        /*
-                        foreach($error_message as $item) {
-                            echo $item . "<br>";
-                        } 
-                        */                  
+                        echo $error_message;                                          
                     ?>
                 </p>
             </div>

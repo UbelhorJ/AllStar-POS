@@ -83,7 +83,7 @@
                 
                 <div id="customer_search">
                     <form action="." method="get">
-                        <input type="text" name="customer_search" size="64"> <input type="submit" name="search" value=" Search ">
+                        <input type="text" name="customer_search" size="64"> <input type="submit" value=" Search ">
                         <input type="hidden" name="action" value="search">
                     </form>
                 </div>

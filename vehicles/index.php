@@ -16,12 +16,17 @@ if (isset($_GET['action'])) {
 
 switch ($action) {
     case 'view_vehicles':
-        $allVehicleBrands = getAllVehicleBrands();     
+        $allVehicleBrands = getAllVehicleBrands();
+        $vehicles = getAllVehicles();    
         include 'vehicles_view.php';
         break;
     case 'getModelsForBrand':
         $brandID = $_GET['brandID'];
         getModelsForBrand($brandID); // returns data to AJAX call
+        break;
+    case 'getVehicleRecords':
+        $vehicleID = $_GET['vehicleID'];
+        getVehicleRecords($vehicleID); //returns data to AJAX call
         break;
     case 'getCustomersForDatalist':
         $searchTerm = $_GET['text'];

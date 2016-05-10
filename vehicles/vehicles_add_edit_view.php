@@ -59,7 +59,7 @@
                         <div id="title" class="input_field">
                             <label for="title">Title:</label><br>
                             <select name="title" id="title">
-                                <option value="clean">Clean</option>
+                                <option value="Clean">Clean</option>
                                 <option value="Salvage">Salvage</option>
                                 <option value="Rebuilt">Rebuilt</option>
                                 <option value="Parts Only">Parts Only</option>
